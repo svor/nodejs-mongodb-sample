@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-guestbook-backend
+  labels:
+    app: node-guestbook
+    tier: guestbook
+spec:
+  type: ClusterIP
+  selector:
+    app: node-guestbook
+    tier: guestbook
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-guestbook-backend
+  labels:
+    app: node-guestbook
+    tier: guestbook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-guestbook
+      tier: guestbook
+  template:
+    metadata:
+      labels:
+        app: node-guestbook
+        tier: backend
+    spec:
+      containers:
+      - name: guestbook
+        image: vsvydenko/node-guestbook-app
+        env:
+        - name: PORT
+          value: "8080"
+        - name: GUESTBOOK_DB_ADDR
+          value: "user:password@172.30.32.28:27017"
