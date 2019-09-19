@@ -7,11 +7,6 @@ const index = require('./routes/index')
 
 const util = require('./utils')
 
-if (!process.env.GUESTBOOK_DB_ADDR) {
-  const errMsg = "GUESTBOOK_DB_ADDR environment variable is not defined"
-  console.error(errMsg)
-  throw new Error(errMsg)
-}
 // Connect to MongoDB, will retry only once
 messages.connectToMongoDB()
 
@@ -31,8 +26,8 @@ if (!process.env.PORT) {
   throw new Error(errMsg)
 }
 
-// Starts an http server on the $PORT environment variable
-const PORT = process.env.PORT;
+// Starts an http server on the 8080 port
+const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log('Press Ctrl+C to quit.');
