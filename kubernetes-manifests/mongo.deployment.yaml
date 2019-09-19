@@ -9,7 +9,7 @@ metadata:
   labels:
     app: node-guestbook
     tier: db
-  name: node-guestbook-mongodb
+  name: mongodb-34-centos7
 spec:
   ports:
     - port: 27017
@@ -21,7 +21,7 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: node-guestbook-mongodb
+  name: mongodb-34-centos7
   labels:
     app: node-guestbook
     tier: db

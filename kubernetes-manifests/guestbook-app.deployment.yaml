@@ -1,40 +1,41 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-guestbook-backend
+  name: node-guestbook-app
   labels:
     app: node-guestbook
-    tier: guestbook
+    tier: frontend
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: node-guestbook
-    tier: guestbook
+    tier: frontend
+  ports:
+    - port: 80
+      targetPort: http-server
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-guestbook-backend
+  name: node-guestbook-apk
   labels:
     app: node-guestbook
-    tier: guestbook
+    tier: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: node-guestbook
-      tier: guestbook
+      tier: frontend
   template:
     metadata:
       labels:
         app: node-guestbook
-        tier: backend
+        tier: frontend
     spec:
       containers:
-      - name: guestbook
+      - name: frontend
         image: vsvydenko/node-guestbook-app
-        env:
-        - name: PORT
-          value: "8080"
-        - name: GUESTBOOK_DB_ADDR
-          value: "user:password@172.30.32.28:27017"
+        ports:
+        - name: http-server
+          containerPort: 8080

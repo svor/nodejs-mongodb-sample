@@ -1,5 +1,5 @@
-# Use base che-nodejs10-ubi image
-FROM quay.io/eclipse/che-nodejs10-ubi:nightly
+# Use base node image
+FROM node:8
 
 WORKDIR /nodejs-mongodb-sample
 
