@@ -19,13 +19,6 @@ app.use(router)
 app.use(express.static('public'))
 router.use(bodyParser.urlencoded({ extended: false }))
 
-// Application will fail if environment variables are not set
-if (!process.env.PORT) {
-  const errMsg = "PORT environment variable is not defined"
-  console.error(errMsg)
-  throw new Error(errMsg)
-}
-
 // Starts an http server on the 8080 port
 const PORT = 8080;
 app.listen(PORT, () => {
