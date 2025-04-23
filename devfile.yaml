@@ -11,6 +11,8 @@ components:
           value: 220fd770-c028-480d-8f95-f84353c7d55a 
         - name: NODE_ENV
           value: production
+        - name: MONGODB_URI
+          value: mongodb://user:password@mongo:27017/guestbook
       endpoints:
         - exposure: public
           name: nodejs
@@ -21,15 +23,15 @@ components:
 
   - name: mongo
     container:
-      image: quay.io/eclipse/che--centos--mongodb-36-centos7:latest-a915db7beca87198fcd7860086989fe8a327a1a4f6508025b64ab28fcc7423b2
+      image: bitnami/mongodb:6.0
       env:
-        - name: MONGODB_USER
+        - name: MONGODB_USERNAME
           value: user
         - name: MONGODB_PASSWORD
           value: password
         - name: MONGODB_DATABASE
           value: guestbook
-        - name: MONGODB_ADMIN_PASSWORD
+        - name: MONGODB_ROOT_PASSWORD
           value: password
       endpoints:
         - name: mongodb
@@ -41,7 +43,7 @@ components:
       mountSources: true
       volumeMounts:
         - name: mongo-storage
-          path: /var/lib/mongodb/data
+          path: /bitnami/mongodb
 
   - name: mongo-storage
     volume:
